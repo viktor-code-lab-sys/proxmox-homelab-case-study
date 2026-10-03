@@ -1,0 +1,106 @@
+site_name: Proxmox Homelab Platform
+site_url: https://viktor-code-lab-sys.github.io/proxmox-homelab-case-study/
+site_description: Case study of an air-gapped homelab platform on Proxmox VE - self-service VMs, internal PKI, Kubernetes the hard way.
+site_author: Victor Zubkov
+repo_url: https://github.com/viktor-code-lab-sys/proxmox-homelab-iac
+repo_name: proxmox-homelab-iac
+copyright: Copyright &copy; 2026 Victor Zubkov &middot; Text licensed under CC BY 4.0
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+  anchors: warn
+
+nav:
+  - Overview: index.md
+  - Architecture:
+      - architecture/index.md
+      - Network: architecture/network.md
+      - Compute and templates: architecture/compute.md
+      - Air-gapped supply chain: architecture/supply-chain.md
+      - PKI and secrets: architecture/pki-and-secrets.md
+      - Provisioning flow: architecture/provisioning-flow.md
+      - Kubernetes platform: architecture/kubernetes-platform.md
+      - Observability: architecture/observability.md
+      - Backup: architecture/backup.md
+  - Decisions:
+      - decisions/index.md
+      - decisions/0000-template.md
+      - decisions/0001-kubernetes-the-hard-way.md
+      - decisions/0002-air-gapped-supply-chain.md
+      - decisions/0003-harbor-over-plain-registry.md
+      - decisions/0004-vault-intermediate-under-offline-root.md
+      - decisions/0005-vault-agent-for-vm-certificates.md
+      - decisions/0006-terraform-over-ansible-for-provisioning.md
+      - decisions/0007-atlantis-for-self-service.md
+      - decisions/0008-gitlab-managed-terraform-state.md
+      - decisions/0009-adopt-firewall-records-without-owning-them.md
+      - decisions/0010-calico-crosssubnet.md
+      - decisions/0011-kube-proxy-on-control-plane.md
+      - decisions/0012-local-path-and-ingress-behind-firewall-vip.md
+      - decisions/0013-cert-manager-with-vault-issuer.md
+      - decisions/0014-postgresql-for-nextcloud.md
+      - decisions/0015-static-resolv-conf.md
+      - decisions/0016-jenkins-ssh-pipeline-for-vm-config.md
+      - decisions/0017-vzdump-over-proxmox-backup-server.md
+  - Lessons learned:
+      - lessons-learned/index.md
+      - lessons-learned/template.md
+      - lessons-learned/admission-webhook-timeouts.md
+      - lessons-learned/lan-domain-and-systemd-resolved.md
+      - lessons-learned/approle-secret-id-consumed-by-refresh.md
+      - lessons-learned/atlantis-env-between-steps.md
+      - lessons-learned/cert-manager-csr-without-cn.md
+      - lessons-learned/helm-image-overrides-air-gapped.md
+      - lessons-learned/gitlab-built-in-node-exporter.md
+      - lessons-learned/fortigate-snmp-silent.md
+      - lessons-learned/small-gotchas.md
+  - Runbook:
+      - runbook/index.md
+      - runbook/01-host-and-network.md
+      - runbook/02-vm-templates.md
+      - runbook/03-supply-chain.md
+      - runbook/04-vault-pki.md
+      - runbook/05-kubernetes-the-hard-way.md
+      - runbook/06-platform-add-ons.md
+      - runbook/07-applications.md
+      - runbook/08-self-service-provisioning.md
+      - runbook/09-observability.md
+      - runbook/10-backup.md
+  - Roadmap: roadmap.md
