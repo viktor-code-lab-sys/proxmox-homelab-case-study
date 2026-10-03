@@ -9,10 +9,6 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: pages
-  cancel-in-progress: false
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,11 +25,15 @@ jobs:
           path: site
 
   # Pages is not available for private repositories on the free plan, so the
-  # deploy only runs once the repository is public.
+  # deploy only runs on main of a public repository. Only the deploy is queued
+  # in the "pages" group; PR builds run in parallel.
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && !github.event.repository.private
     needs: build
     runs-on: ubuntu-latest
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     permissions:
       pages: write
       id-token: write
